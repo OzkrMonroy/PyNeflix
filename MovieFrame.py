@@ -1,6 +1,6 @@
 from tkinter import Tk, Label, Frame, font
 from utils import Utils
-from Movie import Movie
+from MovieModel import Movie
 from MovieItem import MovieItem
 from consts import APP_COLS
 
@@ -8,9 +8,9 @@ from consts import APP_COLS
 class MovieFrame:
     def __init__(self, root: Tk) -> None:
         self._root = root
-        self.__init_frame()
+        self.init_frame()
 
-    def __init_frame(self):
+    def init_frame(self):
         utils = Utils()
         movies = Movie().get_movies()
         label_font = font.Font(family="Arial", size=20, weight="bold")
@@ -29,7 +29,7 @@ class MovieFrame:
         row = 1
 
         for movie in movies:
-            MovieItem(movie_list, movie, row, col)
+            MovieItem(movie_list, movie, row, col, self.init_frame)
             if (col == APP_COLS):
                 col = 1
                 row += 1

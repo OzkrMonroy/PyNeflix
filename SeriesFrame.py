@@ -1,6 +1,6 @@
 from tkinter import Tk, Label, Frame, font
 from utils import Utils
-from Series import Series
+from SeriesModel import Series
 from SeriesItem import SeriesItem
 from consts import APP_COLS
 

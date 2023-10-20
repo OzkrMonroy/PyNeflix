@@ -4,6 +4,7 @@ from SeriesFrame import SeriesFrame
 
 
 class ScreenManager:
+
     def __init__(self, root: Tk) -> None:
         self._root = root
         self.show_home_page()

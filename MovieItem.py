@@ -1,19 +1,28 @@
-from tkinter import Frame, Label, Button
+from tkinter import Frame, Label, Button, messagebox
+from MoviesSeriesController import MoviesSeriesController
 
 
 class MovieItem:
-    def __init__(self, root: Frame, movie, row: int, col: int) -> None:
+    controller = MoviesSeriesController()
+    _callback = None
+
+    def __init__(self, root: Frame, movie, row: int, col: int, callback) -> None:
         self._movie = movie
         self._row = row
         self._col = col
         self._root = root
+        self._callback = callback
         self.__build_item()
 
     def __edit_movie(self):
         print("To edit", self._movie["id"])
 
     def __delete_movie(self):
-        print("To delete", self._movie["id"])
+        response = messagebox.askyesno(
+            "Eliminar", f"¿Esta seguro que quiere eliminar la película: {self._movie['name']}?")
+        if (response):
+            self.controller.delete_movie(self._movie)
+            self._callback()
 
     def __build_item(self):
 
