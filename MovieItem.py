@@ -17,12 +17,12 @@ class MovieItem:
     def __edit_movie(self):
         print("To edit", self._movie["id"])
 
-    def __delete_movie(self):
+    def __delete_movie(self, card_reference: Frame):
         response = messagebox.askyesno(
             "Eliminar", f"¿Esta seguro que quiere eliminar la película: {self._movie['name']}?")
         if (response):
             self.controller.delete_movie(self._movie)
-            self._callback()
+            self._callback(card_reference)
 
     def __build_item(self):
 
@@ -58,5 +58,5 @@ class MovieItem:
         edit_button = Button(card, text="Editar", command=self.__edit_movie)
         edit_button.grid(row=4, column=0, sticky="w", pady=8)
         delete_button = Button(card, text="Eliminar",
-                               command=self.__delete_movie)
+                               command=lambda: self.__delete_movie(frame))
         delete_button.grid(row=4, column=1, sticky="e", pady=8)

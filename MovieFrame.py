@@ -10,11 +10,8 @@ class MovieFrame:
         self._root = root
         self.init_frame()
 
-    def __update_items(self, root: Frame, movies: list):
-        print(root.children)
-        for widget in root.winfo_children():
-            widget.destroy()
-        self.__create_items(root, movies)
+    def __delete_card(self, card_reference: Frame):
+        card_reference.destroy()
 
     def __create_items(self, root: Frame, movies: list):
         col = 1
@@ -22,7 +19,7 @@ class MovieFrame:
 
         for movie in movies:
             MovieItem(root, movie, row, col,
-                      lambda: self.__update_items(root, movies))
+                      lambda card_reference: self.__delete_card(card_reference))
             if (col == APP_COLS):
                 col = 1
                 row += 1

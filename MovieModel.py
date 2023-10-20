@@ -11,11 +11,8 @@ class Movie:
         }
         self._movies.append(movie_ob)
 
-    def filter_movie(self, id, value):
-        return id != value
+    def get_movies(self) -> list:
+        return self._movies
 
     def delete(self, movie):
         self._movies.remove(movie)
-
-    def get_movies(self) -> list:
-        return self._movies

@@ -10,6 +10,9 @@ class SeriesFrame:
         self._root = root
         self.__init_frame()
 
+    def __delete_card(self, card_reference: Frame):
+        card_reference.destroy()
+
     def __init_frame(self):
         utils = Utils()
         series = Series().get_series()
@@ -29,7 +32,8 @@ class SeriesFrame:
         row = 1
 
         for movie in series:
-            SeriesItem(series_list, movie, row, col)
+            SeriesItem(series_list, movie, row, col,
+                       lambda card_reference: self.__delete_card(card_reference))
             if (col == APP_COLS):
                 col = 1
                 row += 1

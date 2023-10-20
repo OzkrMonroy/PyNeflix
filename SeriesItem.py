@@ -1,19 +1,27 @@
-from tkinter import Frame, Label, Button
+from tkinter import Frame, Label, Button, messagebox
+from MoviesSeriesController import MoviesSeriesController
 
 
 class SeriesItem:
-    def __init__(self, root: Frame, series, row: int, col: int) -> None:
+    controller = MoviesSeriesController()
+
+    def __init__(self, root: Frame, series, row: int, col: int, callback) -> None:
         self._series = series
         self._row = row
         self._col = col
         self._root = root
+        self._callback = callback
         self.__build_item()
 
     def __edit_series(self):
         print(f"series to edit {self._series['id']}")
 
-    def __delete_series(self):
-        print(f"series to delete {self._series['id']}")
+    def __delete_series(self, card_reference: Frame):
+        response = messagebox.askyesno(
+            "Eliminar", f"¿Esta seguro que quiere eliminar la serie: {self._series['name']}?")
+        if (response):
+            self.controller.delete_series(self._series)
+            self._callback(card_reference)
 
     def __build_item(self):
         frame = Frame(self._root, width=200, height=200,
@@ -52,5 +60,5 @@ class SeriesItem:
         edit_button = Button(card, text="Editar", command=self.__edit_series)
         edit_button.grid(row=5, column=0, sticky="w", pady=8)
         delete_button = Button(card, text="Eliminar",
-                               command=self.__delete_series)
+                               command=lambda: self.__delete_series(frame))
         delete_button.grid(row=5, column=1, sticky="e", pady=8)

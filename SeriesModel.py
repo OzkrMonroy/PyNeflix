@@ -14,3 +14,6 @@ class Series:
 
     def get_series(self):
         return self._series
+
+    def delete(self, series):
+        self._series.remove(series)

@@ -32,3 +32,6 @@ class MoviesSeriesController:
 
     def delete_movie(self, movie):
         self._movie.delete(movie)
+
+    def delete_series(self, series):
+        self._series.delete(series)
