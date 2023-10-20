@@ -6,8 +6,9 @@ from consts import APP_COLS
 
 
 class MovieFrame:
-    def __init__(self, root: Tk) -> None:
+    def __init__(self, root: Tk, navigation_callback) -> None:
         self._root = root
+        self._navigation_callback = navigation_callback
         self.init_frame()
 
     def __delete_card(self, card_reference: Frame):
@@ -19,7 +20,7 @@ class MovieFrame:
 
         for movie in movies:
             MovieItem(root, movie, row, col,
-                      lambda card_reference: self.__delete_card(card_reference))
+                      lambda card_reference: self.__delete_card(card_reference), self._navigation_callback)
             if (col == APP_COLS):
                 col = 1
                 row += 1

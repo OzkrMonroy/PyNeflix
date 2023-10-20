@@ -4,25 +4,26 @@ from MoviesSeriesController import MoviesSeriesController
 
 class MovieItem:
     controller = MoviesSeriesController()
-    _callback = None
 
-    def __init__(self, root: Frame, movie, row: int, col: int, callback) -> None:
+    def __init__(self, root: Frame, movie, row: int, col: int, delete_callback, navigation_callback) -> None:
         self._movie = movie
         self._row = row
         self._col = col
         self._root = root
-        self._callback = callback
+        self._delete_callback = delete_callback
+        self._navigation_callback = navigation_callback
         self.__build_item()
 
     def __edit_movie(self):
         print("To edit", self._movie["id"])
+        self._navigation_callback()
 
     def __delete_movie(self, card_reference: Frame):
         response = messagebox.askyesno(
             "Eliminar", f"¿Esta seguro que quiere eliminar la película: {self._movie['name']}?")
         if (response):
             self.controller.delete_movie(self._movie)
-            self._callback(card_reference)
+            self._delete_callback(card_reference)
 
     def __build_item(self):
 
