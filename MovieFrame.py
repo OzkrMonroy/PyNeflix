@@ -10,10 +10,29 @@ class MovieFrame:
         self._root = root
         self.init_frame()
 
+    def __update_items(self, root: Frame, movies: list):
+        print(root.children)
+        for widget in root.winfo_children():
+            widget.destroy()
+        self.__create_items(root, movies)
+
+    def __create_items(self, root: Frame, movies: list):
+        col = 1
+        row = 1
+
+        for movie in movies:
+            MovieItem(root, movie, row, col,
+                      lambda: self.__update_items(root, movies))
+            if (col == APP_COLS):
+                col = 1
+                row += 1
+            else:
+                col += 1
+
     def init_frame(self):
         utils = Utils()
-        movies = Movie().get_movies()
         label_font = font.Font(family="Arial", size=20, weight="bold")
+        movies = Movie().get_movies()
 
         movies_frame_container = Frame(self._root)
         movies_frame_container.pack(fill="x")
@@ -25,13 +44,4 @@ class MovieFrame:
         utils.config_list_row(movies_frame_container, len(movies))
         movie_list.pack(fill="x")
 
-        col = 1
-        row = 1
-
-        for movie in movies:
-            MovieItem(movie_list, movie, row, col, self.init_frame)
-            if (col == APP_COLS):
-                col = 1
-                row += 1
-            else:
-                col += 1
+        self.__create_items(movie_list, movies)
