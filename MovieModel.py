@@ -1,5 +1,6 @@
 class Movie:
     _movies = []
+    _element_to_edit = {}
 
     def save(self, movie_properties: list) -> None:
         movie_ob = {
@@ -16,3 +17,6 @@ class Movie:
 
     def delete(self, movie):
         self._movies.remove(movie)
+
+    def set_element_to_edit(self, movie):
+        self._element_to_edit = movie

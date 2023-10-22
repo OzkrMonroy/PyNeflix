@@ -9,7 +9,7 @@ class MoviesSeriesController:
         self._movie = Movie()
         self._series = Series()
 
-    def __save_movie_series(self, movie_series: list[str]) -> None:
+    def save_movie_series(self, movie_series: list[str]) -> None:
         if (movie_series[1] == "pelicula"):
             self._movie.save(movie_series)
             return
@@ -23,7 +23,7 @@ class MoviesSeriesController:
 
             for movie_series in movie_and_series_file:
                 movie_series = movie_series.rstrip("\n").split(",")
-                self.__save_movie_series(movie_series)
+                self.save_movie_series(movie_series)
 
             movie_and_series_file.close()
 

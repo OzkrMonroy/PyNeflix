@@ -10,9 +10,6 @@ class SeriesFrame:
         self._root = root
         self.__init_frame()
 
-    def __delete_card(self, card_reference: Frame):
-        card_reference.destroy()
-
     def __init_frame(self):
         utils = Utils()
         series = Series().get_series()
@@ -39,3 +36,6 @@ class SeriesFrame:
                 row += 1
             else:
                 col += 1
+
+    def __delete_card(self, card_reference: Frame):
+        card_reference.destroy()

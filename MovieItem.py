@@ -35,7 +35,6 @@ class MovieItem:
         card = Frame(frame)
         card.columnconfigure((0, 1), weight=1)
         card.rowconfigure((0, 1, 2, 3, 4), weight=1)
-        # card.config(bg="white")
         card.pack(padx=10, pady=10)
 
         card_title = Label(card, text=self._movie["name"])

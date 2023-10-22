@@ -1,6 +1,7 @@
 from tkinter import Tk
 from MovieFrame import MovieFrame
 from SeriesFrame import SeriesFrame
+from AddElement import AddElement
 from MoviesSeriesController import MoviesSeriesController
 from utils import Utils
 
@@ -34,5 +35,6 @@ class ScreenManager:
         window.title("PyNeflix - Add")
         window.geometry("1024x600")
         self._utils.center_window(window, 1024, 600)
+        AddElement(window, self.show_home_page)
         self.current_page = window
         window.mainloop()
