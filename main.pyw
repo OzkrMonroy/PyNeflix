@@ -3,7 +3,7 @@ from ScreenManager import ScreenManager
 
 def main() -> None:
     manager = ScreenManager()
-    manager.show_add_page()
+    manager.show_home_page()
 
 
 main()

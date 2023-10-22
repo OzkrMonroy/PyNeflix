@@ -4,6 +4,8 @@ from MoviesSeriesController import MoviesSeriesController
 
 
 class AddElement:
+    controller = MoviesSeriesController()
+
     def __init__(self, root: Frame, navigation_callback) -> None:
         self._root = root
         self._navigation_callback = navigation_callback
@@ -16,9 +18,13 @@ class AddElement:
         add_element_frame.columnconfigure((0, 1), weight=1)
         add_element_frame.pack(fill="both")
 
+        element = self.controller.get_element_type()
+        print(element)
+        window_title = f"Agregar nueva {element}"
         label_font = Font(family="Arial", size=20, weight="bold")
+
         movie_section_title = Label(
-            add_element_frame, text="Agregar nuevo", font=label_font, anchor="w")
+            add_element_frame, text=window_title, font=label_font, anchor="w")
         movie_section_title.grid(
             row=0, column=0, padx=10, pady=10, sticky="we")
 
@@ -66,7 +72,6 @@ class AddElement:
         if (not bool(name) or not bool(duration) or not bool(rating) or not bool(genre)):
             messagebox.showerror("Error", "Todos los campos son obligatorios")
             return
-        controller = MoviesSeriesController()
-        controller.save_movie_series(
+        self.controller.save_movie_series(
             [name, "pelicula", duration, rating, genre])
         self._navigation_callback()

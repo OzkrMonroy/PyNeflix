@@ -16,6 +16,7 @@ class MovieItem:
 
     def __edit_movie(self):
         print("To edit", self._movie["id"])
+        self.controller.set_element_type("película")
         self._navigation_callback()
 
     def __delete_movie(self, card_reference: Frame):

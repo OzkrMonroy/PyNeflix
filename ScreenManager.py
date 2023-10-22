@@ -25,7 +25,7 @@ class ScreenManager:
         window.geometry("1024x600")
         self._utils.center_window(window, 1024, 600)
         MovieFrame(window, self.show_add_page)
-        SeriesFrame(window)
+        SeriesFrame(window, self.show_add_page)
         self.current_page = window
         window.mainloop()
 

@@ -2,10 +2,13 @@ from tkinter import Tk, Label, Frame, Button, font
 from utils import Utils
 from MovieModel import Movie
 from MovieItem import MovieItem
+from MoviesSeriesController import MoviesSeriesController
 from consts import APP_COLS
 
 
 class MovieFrame:
+    controller = MoviesSeriesController()
+
     def __init__(self, root: Tk, navigation_callback) -> None:
         self._root = root
         self._navigation_callback = navigation_callback
@@ -25,7 +28,7 @@ class MovieFrame:
             movies_frame_container, text="Películas", anchor="w", font=label_font)
         movie_section_title.grid(padx=10, pady=10, column=0, row=0)
         add_button = Button(movies_frame_container,
-                            text="Agregar", command=self._navigation_callback)
+                            text="Agregar", command=self.__navigate_to_add_movie)
         add_button.grid(padx=10, pady=10, column=1, row=0)
 
         movie_list = Frame(movies_frame_container)
@@ -47,3 +50,7 @@ class MovieFrame:
 
     def __delete_card(self, card_reference: Frame):
         card_reference.destroy()
+
+    def __navigate_to_add_movie(self):
+        self.controller.set_element_type("película")
+        self._navigation_callback()
