@@ -1,6 +1,5 @@
 class Movie:
     _movies = []
-    _element_to_edit = {}
 
     def save(self, movie_properties: list) -> None:
         movie_ob = {
@@ -18,5 +17,14 @@ class Movie:
     def delete(self, movie):
         self._movies.remove(movie)
 
-    def set_element_to_edit(self, movie):
-        self._element_to_edit = movie
+    def update(self, series: list[str]):
+        index = self.__get_element_index(series)
+        if (bool(index)):
+            self._movies[index] = series
+
+    def __get_element_index(self, series: list[str]):
+        index = None
+        for i, element in enumerate(self._movies):
+            if element["id"] == series[0]:
+                index = i
+        return index

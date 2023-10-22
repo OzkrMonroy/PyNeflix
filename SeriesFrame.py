@@ -1,6 +1,5 @@
 from tkinter import Tk, Label, Frame, font, Button
 from utils import Utils
-from SeriesModel import Series
 from SeriesItem import SeriesItem
 from MoviesSeriesController import MoviesSeriesController
 from consts import APP_COLS
@@ -16,7 +15,7 @@ class SeriesFrame:
 
     def __init_frame(self):
         utils = Utils()
-        series = Series().get_series()
+        series = self.controller.get_series()
         label_font = font.Font(family="Arial", size=20, weight="bold")
 
         series_frame_container = Frame(self._root)

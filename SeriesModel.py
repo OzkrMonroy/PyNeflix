@@ -17,3 +17,15 @@ class Series:
 
     def delete(self, series):
         self._series.remove(series)
+
+    def update(self, series: list[str]):
+        index = self.__get_element_index(series)
+        if (bool(index)):
+            self._series[index] = series
+
+    def __get_element_index(self, series: list[str]):
+        index = None
+        for i, element in enumerate(self._series):
+            if element["id"] == series[0]:
+                index = i
+        return index

@@ -1,6 +1,5 @@
 from tkinter import Tk, Label, Frame, Button, font
 from utils import Utils
-from MovieModel import Movie
 from MovieItem import MovieItem
 from MoviesSeriesController import MoviesSeriesController
 from consts import APP_COLS
@@ -17,7 +16,7 @@ class MovieFrame:
     def init_frame(self):
         utils = Utils()
         label_font = font.Font(family="Arial", size=20, weight="bold")
-        movies = Movie().get_movies()
+        movies = self.controller.get_movies()
 
         movies_frame_container = Frame(self._root)
         movies_frame_container.columnconfigure((0, 1), weight=1)

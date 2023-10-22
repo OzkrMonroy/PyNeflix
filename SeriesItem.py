@@ -53,9 +53,9 @@ class SeriesItem:
         card_duration.grid(row=3, column=1, sticky="e")
 
         card_duration_label = Label(card, text="Fecha de lanzamiento:")
-        card_duration_label.grid(row=3, column=0, sticky="w")
+        card_duration_label.grid(row=4, column=0, sticky="w")
         card_duration = Label(card, text=self._series["release_date"])
-        card_duration.grid(row=3, column=1, sticky="e")
+        card_duration.grid(row=4, column=1, sticky="e")
 
         edit_button = Button(card, text="Editar", command=self.__edit_series)
         edit_button.grid(row=5, column=0, sticky="w", pady=8)

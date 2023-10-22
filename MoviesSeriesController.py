@@ -7,6 +7,9 @@ from consts import ROOT_PATH, MOVIES_AND_SERIES_FILE
 class MoviesSeriesController:
     # propiedades o atributos
     _element_type = ""
+    _is_update = False
+    _element_to_update = {}
+
     _movie = Movie()
     _series = Series()
 
@@ -38,6 +41,18 @@ class MoviesSeriesController:
     def delete_series(self, series):
         self._series.delete(series)
 
+    def update_series(self, series):
+        self._series.update(series)
+
+    def update_movie(self, movie):
+        self._movie.update(movie)
+
+    def get_series(self):
+        return self._series.get_series()
+
+    def get_movies(self):
+        return self._movie.get_movies()
+
     @classmethod
     def set_element_type(cls, value):
         cls._element_type = value
@@ -45,3 +60,16 @@ class MoviesSeriesController:
     @classmethod
     def get_element_type(cls):
         return cls._element_type
+
+    @classmethod
+    def toggle_is_to_update(cls, element):
+        cls._is_update = not cls._is_update
+        cls._element_to_update = element
+
+    @classmethod
+    def get_is_to_update(cls):
+        return cls._is_update
+
+    @classmethod
+    def get_element_to_update(cls):
+        return cls._element_to_update
