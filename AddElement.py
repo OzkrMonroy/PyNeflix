@@ -30,7 +30,7 @@ class AddElement:
         add_element_frame.columnconfigure((0, 1), weight=1)
         add_element_frame.pack(fill="both")
 
-        window_title = f"Editar {self._element}" if self._is_to_update else f"Agregar nueva {self._element}"
+        window_title = f"Editar {self._element}" if self._is_to_update else f"Agregar {self._element}"
         label_font = Font(family="Arial", size=20, weight="bold")
 
         movie_section_title = Label(
