@@ -1,6 +1,6 @@
 import os
-from MovieModel import Movie
-from SeriesModel import Series
+from Models import MoviesModel
+from Models import SeriesModel
 from consts import ROOT_PATH, MOVIES_AND_SERIES_FILE
 
 
@@ -10,8 +10,8 @@ class MoviesSeriesController:
     _is_update = False
     _element_to_update = {}
 
-    _movie = Movie()
-    _series = Series()
+    _movie = MoviesModel()
+    _series = SeriesModel()
 
     # métodos
     def load_movies_and_series(self):
@@ -62,8 +62,8 @@ class MoviesSeriesController:
         return cls._element_type
 
     @classmethod
-    def toggle_is_to_update(cls, element):
-        cls._is_update = not cls._is_update
+    def set_is_to_update(cls, is_to_update, element):
+        cls._is_update = is_to_update
         cls._element_to_update = element
 
     @classmethod

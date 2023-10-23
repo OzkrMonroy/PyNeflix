@@ -40,7 +40,7 @@ class SeriesFrame:
 
         for movie in series:
             SeriesItem(series_list, movie, row, col,
-                       lambda card_reference: self.__delete_card(card_reference))
+                       lambda card_reference: self.__delete_card(card_reference), self._navigation_callback)
             if (col == APP_COLS):
                 col = 1
                 row += 1
@@ -51,5 +51,6 @@ class SeriesFrame:
         card_reference.destroy()
 
     def __navigate_to_add_series(self):
+        self.controller.set_is_to_update(False, None)
         self.controller.set_element_type("serie")
         self._navigation_callback()

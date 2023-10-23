@@ -15,13 +15,13 @@ class MovieItem:
         self.__build_item()
 
     def __edit_movie(self):
-        print("To edit", self._movie["id"])
         self.controller.set_element_type("película")
+        self.controller.set_is_to_update(True, self._movie)
         self._navigation_callback()
 
     def __delete_movie(self, card_reference: Frame):
         response = messagebox.askyesno(
-            "Eliminar", f"¿Esta seguro que quiere eliminar la película: {self._movie['name']}?")
+            "Eliminar", f"¿Esta seguro que quiere eliminar la película: {self._movie.name}?")
         if (response):
             self.controller.delete_movie(self._movie)
             self._delete_callback(card_reference)
@@ -38,22 +38,22 @@ class MovieItem:
         card.rowconfigure((0, 1, 2, 3, 4), weight=1)
         card.pack(padx=10, pady=10)
 
-        card_title = Label(card, text=self._movie["name"])
+        card_title = Label(card, text=self._movie.name)
         card_title.grid(row=0, column=0, sticky="ew", columnspan=2)
 
         card_duration_label = Label(card, text="Duración:")
         card_duration_label.grid(row=1, column=0, sticky="w")
-        card_duration = Label(card, text=self._movie["duration"])
+        card_duration = Label(card, text=self._movie.duration)
         card_duration.grid(row=1, column=1, sticky="e")
 
         card_duration_label = Label(card, text="Clasificación:")
         card_duration_label.grid(row=2, column=0, sticky="w")
-        card_duration = Label(card, text=self._movie["rating"])
+        card_duration = Label(card, text=self._movie.rating)
         card_duration.grid(row=2, column=1, sticky="e")
 
         card_duration_label = Label(card, text="Género:")
         card_duration_label.grid(row=3, column=0, sticky="w")
-        card_duration = Label(card, text=self._movie["genre"])
+        card_duration = Label(card, text=self._movie.genre)
         card_duration.grid(row=3, column=1, sticky="e")
 
         edit_button = Button(card, text="Editar", command=self.__edit_movie)

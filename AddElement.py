@@ -9,15 +9,20 @@ class AddElement:
     def __init__(self, root: Frame, navigation_callback) -> None:
         self._root = root
         self._navigation_callback = navigation_callback
+        self._is_to_update = False
+        self._element_to_update = {}
+        self._element = ""
         self.__build_screen()
 
     def __build_screen(self):
-        element = self.controller.get_element_type()
+        self._element = self.controller.get_element_type()
+        self._element_to_update = self.controller.get_element_to_update()
+        self._is_to_update = self.controller.get_is_to_update()
 
-        row_quantity = (0, 1, 2, 3, 4, 5, 6, 7, 8) if element == "serie" else (
+        row_quantity = (0, 1, 2, 3, 4, 5, 6, 7, 8) if self._element == "serie" else (
             0, 1, 2, 3, 4, 5, 6, 7)
-        duration_season_text = "Temporadas:" if element == "serie" else "Duración:"
-        buttons_row = 6 if element == "serie" else 5
+        duration_season_text = "Temporadas:" if self._element == "serie" else "Duración:"
+        buttons_row = 6 if self._element == "serie" else 5
 
         add_element_frame = Frame(
             self._root, padx=150, pady=20, width=500)
@@ -25,7 +30,7 @@ class AddElement:
         add_element_frame.columnconfigure((0, 1), weight=1)
         add_element_frame.pack(fill="both")
 
-        window_title = f"Agregar nueva {element}"
+        window_title = f"Editar {self._element}" if self._is_to_update else f"Agregar nueva {self._element}"
         label_font = Font(family="Arial", size=20, weight="bold")
 
         movie_section_title = Label(
@@ -69,19 +74,22 @@ class AddElement:
         release_entry = Entry(add_element_frame,
                               font=options_font, borderwidth=2, relief="groove")
 
-        if (element == "serie"):
+        if (self._element == "serie"):
             release_label.grid(row=5, column=0, padx=10, pady=20, sticky="we")
             release_entry.grid(row=5, column=1, sticky="we", pady=20)
+        if (self._is_to_update):
+            self.fill_fields(name_entry, duration_season_entry,
+                             rating_entry, genre_entry, release_entry)
 
         cancel_button = Button(
             add_element_frame, text="Cancelar", command=self._navigation_callback)
         cancel_button.grid(row=buttons_row, column=0)
         save_button = Button(add_element_frame, text="Guardar", command=lambda: self.save_element(
-            name_entry, duration_season_entry, rating_entry, genre_entry, release_entry, element))
+            name_entry, duration_season_entry, rating_entry, genre_entry, release_entry))
         save_button.grid(row=buttons_row, column=1)
 
-    def save_element(self, name_entry: Entry, duration_seasons_entry: Entry, rating_entry: Entry, genre_entry: Entry, release_entry: Entry, type: str):
-        if (type == "serie"):
+    def save_element(self, name_entry: Entry, duration_seasons_entry: Entry, rating_entry: Entry, genre_entry: Entry, release_entry: Entry):
+        if (self._element == "serie"):
             self.save_serie(name_entry, duration_seasons_entry,
                             rating_entry, genre_entry, release_entry)
         else:
@@ -95,8 +103,13 @@ class AddElement:
         if (not bool(name) or not bool(duration) or not bool(rating) or not bool(genre)):
             messagebox.showerror("Error", "Todos los campos son obligatorios")
             return
-        self.controller.save_movie_series(
-            [name, "pelicula", duration, rating, genre])
+        if (self._is_to_update):
+            self.controller.update_movie(
+                [self._element_to_update.id, name, duration, rating, genre])
+        else:
+            self.controller.save_movie_series(
+                [name, "pelicula", duration, rating, genre])
+
         self._navigation_callback()
 
     def save_serie(self, name_entry: Entry, seasons_entry: Entry, rating_entry: Entry, genre_entry: Entry, release_entry: Entry):
@@ -106,6 +119,22 @@ class AddElement:
         if (not bool(name) or not bool(season) or not bool(rating) or not bool(genre) or not bool(release)):
             messagebox.showerror("Error", "Todos los campos son obligatorios")
             return
-        self.controller.save_movie_series(
-            [name, "serie", season, rating, genre, release])
+
+        if (self._is_to_update):
+            self.controller.update_series(
+                [self._element_to_update.id, name, season, rating, genre, release])
+        else:
+            self.controller.save_movie_series(
+                [name, "serie", season, rating, genre, release])
+
         self._navigation_callback()
+
+    def fill_fields(self, name_entry: Entry, duration_seasons_entry: Entry, rating_entry: Entry, genre_entry: Entry, release_entry: Entry):
+        name_entry.insert(0, self._element_to_update.name)
+        rating_entry.insert(0, self._element_to_update.rating)
+        genre_entry.insert(0, self._element_to_update.genre)
+        duration_seasons_entry.insert(
+            0, self._element_to_update.duration)
+
+        if (self._element == "serie"):
+            release_entry.insert(0, self._element_to_update.release_date)

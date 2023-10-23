@@ -52,4 +52,5 @@ class MovieFrame:
 
     def __navigate_to_add_movie(self):
         self.controller.set_element_type("película")
+        self.controller.set_is_to_update(False, None)
         self._navigation_callback()
