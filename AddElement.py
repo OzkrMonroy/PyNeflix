@@ -88,6 +88,16 @@ class AddElement:
             name_entry, duration_season_entry, rating_entry, genre_entry, release_entry))
         save_button.grid(row=buttons_row, column=1)
 
+    def fill_fields(self, name_entry: Entry, duration_seasons_entry: Entry, rating_entry: Entry, genre_entry: Entry, release_entry: Entry):
+        name_entry.insert(0, self._element_to_update.name)
+        rating_entry.insert(0, self._element_to_update.rating)
+        genre_entry.insert(0, self._element_to_update.genre)
+        duration_seasons_entry.insert(
+            0, self._element_to_update.duration)
+
+        if (self._element == "serie"):
+            release_entry.insert(0, self._element_to_update.release_date)
+
     def save_element(self, name_entry: Entry, duration_seasons_entry: Entry, rating_entry: Entry, genre_entry: Entry, release_entry: Entry):
         if (self._element == "serie"):
             self.save_serie(name_entry, duration_seasons_entry,
@@ -128,13 +138,3 @@ class AddElement:
                 [name, "serie", season, rating, genre, release])
 
         self._navigation_callback()
-
-    def fill_fields(self, name_entry: Entry, duration_seasons_entry: Entry, rating_entry: Entry, genre_entry: Entry, release_entry: Entry):
-        name_entry.insert(0, self._element_to_update.name)
-        rating_entry.insert(0, self._element_to_update.rating)
-        genre_entry.insert(0, self._element_to_update.genre)
-        duration_seasons_entry.insert(
-            0, self._element_to_update.duration)
-
-        if (self._element == "serie"):
-            release_entry.insert(0, self._element_to_update.release_date)

@@ -1,6 +1,5 @@
 import os
-from Models import MoviesModel
-from Models import SeriesModel
+from Models import MoviesModel, SeriesModel
 from consts import ROOT_PATH, MOVIES_AND_SERIES_FILE
 
 

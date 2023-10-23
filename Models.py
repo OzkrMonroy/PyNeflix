@@ -22,8 +22,8 @@ class ParentModel:
 
 
 class Series(ParentClass):
-    def __init__(self, id, name, seasons, rating, genre, release_date) -> None:
-        super().__init__(id, name, seasons, rating, genre)
+    def __init__(self, id, name, duration, rating, genre, release_date) -> None:
+        super().__init__(id, name, duration, rating, genre)
         self.release_date = release_date
 
 # Template to create movies
@@ -52,9 +52,12 @@ class SeriesModel(ParentModel):
 
     def update(self, series):
         index = self.__get_element_index(series)
-        if (bool(index)):
-            self._series[index] = series
-        print(self._series)
+        if (index != None):
+            self._series[index].name = series[1]
+            self._series[index].duration = series[2]
+            self._series[index].rating = series[3]
+            self._series[index].genre = series[4]
+            self._series[index].release_date = series[5]
 
     def __get_element_index(self, series):
         return super().get_element_index(series, self._series)
@@ -77,8 +80,11 @@ class MoviesModel(ParentModel):
 
     def update(self, movie):
         index = self.__get_element_index(movie)
-        if (bool(index)):
-            self._movies[index] = movie
+        if (index != None):
+            self._movies[index].name = movie[1]
+            self._movies[index].duration = movie[2]
+            self._movies[index].rating = movie[3]
+            self._movies[index].genre = movie[4]
 
     def __get_element_index(self, movie):
         return super().get_element_index(movie, self._movies)
