@@ -1,6 +1,8 @@
 import os
 from Models import MoviesModel, SeriesModel
-from consts import ROOT_PATH, MOVIES_AND_SERIES_FILE
+
+ROOT_PATH = "C:\Archivos"
+MOVIES_AND_SERIES_FILE = "CargaSerie_Pelicula.txt"
 
 
 class MoviesSeriesController:
